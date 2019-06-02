@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import LetterAvatar from "@/components/LetterAvatar";
+import LetterAvatar from "./LetterAvatar";
 
 export default {
   name: "VueAvatar",

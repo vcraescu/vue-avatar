@@ -1,6 +1,6 @@
 {
   "name": "@vcraescu/vue-avatar",
-  "version": "0.1.1",
+  "version": "0.1.5",
   "private": false,
   "author": {
     "name": "Viorel Craescu",
@@ -45,8 +45,8 @@
     "vue-template-compiler": "^2.6.10"
   },
   "files": [
-    "dist/*",
-    "src/*",
+    "dist/*.js",
+    "src/components/*",
     "*.json"
   ]
 }
