@@ -79,6 +79,7 @@ export default {
         const img = new Image();
         img.onload = () => {
           this.showImage = true;
+          this.$emit("loaded", value);
 
           setTimeout(() => {
             this.hideLetter = true;
