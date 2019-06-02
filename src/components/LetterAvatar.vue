@@ -1,12 +1,7 @@
 <template>
-  <img
-    :src="url"
-    class="letter-avatar"
-    :class="classes"
-    :alt="name"
-    width="100%"
-    @click="onClick"
-  />
+  <div class="letter-avatar" :class="classes">
+    <img :src="url" :alt="name" width="100%" @click="onClick" />
+  </div>
 </template>
 
 <script>
@@ -144,9 +139,17 @@ export default {
 <style scoped lang="scss">
 .letter-avatar {
   width: 100%;
+  display: inline;
+
+  img {
+    display: block;
+  }
 
   &--rounded {
     border-radius: 50%;
+    img {
+      border-radius: 50%;
+    }
   }
 }
 </style>

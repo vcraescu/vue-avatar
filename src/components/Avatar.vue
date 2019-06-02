@@ -1,22 +1,25 @@
 <template>
-  <img
-    class="avatar"
-    :class="classes"
-    v-if="showImage"
-    :src="url"
-    :alt="name"
-    width="100%"
-    @click="onClick"
-  />
-  <LetterAvatar
-    v-else
-    :name="name"
-    @click="onClick"
-    :rounded="rounded"
-    :fg-color="fgColor"
-    :bg-color="bgColor"
-    :bg-color-palette="bgColorPalette"
-  />
+  <div class="avatar" :class="classes">
+    <div class="avatar__letter" v-if="!hideLetter">
+      <LetterAvatar
+        :name="name"
+        @click="onClick"
+        :rounded="rounded"
+        :fg-color="fgColor"
+        :bg-color="bgColor"
+        :bg-color-palette="bgColorPalette"
+      />
+    </div>
+    <transition name="fade">
+      <div
+        class="avatar__image"
+        :class="{ 'avatar__image--initial': hideLetter }"
+        v-if="showImage"
+      >
+        <img :src="url" :alt="name" width="100%" @click="onClick" />
+      </div>
+    </transition>
+  </div>
 </template>
 
 <script>
@@ -56,9 +59,6 @@ export default {
       default: () => [],
     },
   },
-  created() {
-    this.tryLoadImage();
-  },
   computed: {
     classes() {
       return { "avatar--rounded": this.rounded };
@@ -68,22 +68,32 @@ export default {
     onClick(event) {
       this.$emit("click", event);
     },
-    tryLoadImage() {
-      if (!this.url) {
-        return;
-      }
+  },
+  watch: {
+    url: {
+      handler(value) {
+        if (!value) {
+          return;
+        }
 
-      const img = new Image();
-      img.onload = () => {
-        this.showImage = true;
-      };
+        const img = new Image();
+        img.onload = () => {
+          this.showImage = true;
 
-      img.src = this.url;
+          setTimeout(() => {
+            this.hideLetter = true;
+          }, 500);
+        };
+
+        img.src = value;
+      },
+      immediate: true,
     },
   },
   data() {
     return {
       showImage: false,
+      hideLetter: false,
     };
   },
 };
@@ -92,9 +102,36 @@ export default {
 <style lang="scss" scoped>
 .avatar {
   width: 100%;
+  position: relative;
+  display: inline-block;
 
+  &__letter {
+  }
+  &__image {
+    position: absolute;
+    top: 0;
+
+    &--initial {
+      position: initial;
+    }
+
+    img {
+      display: block;
+    }
+  }
   &--rounded {
     border-radius: 50%;
+    img {
+      border-radius: 50%;
+    }
   }
+}
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>

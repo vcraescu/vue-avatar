@@ -1,16 +1,20 @@
 <template>
   <div id="app">
     <div style="width: 100px;">
-      <VueAvatar name="John Doe" rounded />
+      <VueAvatar name="John Doe" />
       <VueAvatar name="Michal Appleseed" rounded />
-      <VueAvatar name="Arthur Smith" rounded />
-      <VueAvatar name="Francis Underwood" rounded />
+      <VueAvatar name="Arthur Smith" rounded :url="avatarUrl1" />
+      <VueAvatar
+        name="Francis Underwood"
+        rounded
+        url="https://i.pravatar.cc/300?img=6"
+      />
     </div>
-    <div style="width: 100px;">
+    <div style="width: 150px;">
       <VueAvatar
         rounded
         name="Marlyn Monroe"
-        url="https://i.pravatar.cc/150?img=3"
+        url="https://i.pravatar.cc/300?img=10"
       />
     </div>
   </div>
@@ -22,6 +26,16 @@ import VueAvatar from "@/components/Avatar";
 export default {
   name: "app",
   components: { VueAvatar },
+  mounted() {
+    setTimeout(() => {
+      this.avatarUrl1 = "https://i.pravatar.cc/300?img=4";
+    }, 500);
+  },
+  data() {
+    return {
+      avatarUrl1: null,
+    };
+  },
 };
 </script>
 
