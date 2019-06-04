@@ -104,6 +104,8 @@ export default {
   width: 100%;
   position: relative;
   display: inline-block;
+  font-size: 0;
+  line-height: 0;
 
   &__letter {
   }
@@ -116,7 +118,7 @@ export default {
     }
 
     img {
-      display: block;
+      display: inline-block;
     }
   }
   &--rounded {

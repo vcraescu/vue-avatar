@@ -139,10 +139,12 @@ export default {
 <style scoped lang="scss">
 .letter-avatar {
   width: 100%;
-  display: inline;
+  display: inline-block;
+  font-size: 0;
+  line-height: 0;
 
   img {
-    display: block;
+    display: inline-block;
   }
 
   &--rounded {
