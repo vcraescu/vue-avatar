@@ -29,7 +29,7 @@ export default {
 After that you can use it in your templates:
 ```
 <div style="width: 48px">
-    <vue-avatar name="John Doe" url="https://i.pravatar.cc/300" />
+    <vue-avatar name="John Doe" url="https://i.pravatar.cc/300" block />
 </div>
 ```
 
@@ -70,10 +70,23 @@ After that you can use it in your templates:
     <td> - </td>
     <td> Array </td>
     <td>Letter avatar background color will be randomly choosen from this array.</td></tr>
+  <tr><td>block</td>
+    <td> No </td>
+    <td> false </td>
+    <td> Boolean </td>
+    <td>Scales to the size of the containers: width=100%, height=100%</td></tr>
+  <tr><td>width</td>
+    <td> No </td>
+    <td> 100 </td>
+    <td> Number </td>
+    <td>Set avatar width</td></tr>
+  <tr><td>height</td>
+    <td> No </td>
+    <td> 100 </td>
+    <td> Number </td>
+    <td>Set avatar height</td></tr>
 </tbody>
 </table>
-
-**Note**: The component does not have a size property because it is supposed to scale to the size of the container.
 
 ##### Default Background Color Palette
 <table class="table">

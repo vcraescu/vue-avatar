@@ -1,36 +1,19 @@
 <template>
-  <div class="letter-avatar" :class="classes">
+  <div class="letter-avatar" :class="classes" :style="styles">
     <img :src="url" :alt="name" width="100%" @click="onClick" />
   </div>
 </template>
 
 <script>
+import avatarMixin from "../mixins/avatar";
+
 export default {
   name: "VueLetterAvatar",
+  mixins: [avatarMixin],
   props: {
     name: {
       type: String,
       required: true,
-    },
-    rounded: {
-      type: Boolean,
-      required: false,
-      default: false,
-    },
-    fgColor: {
-      type: String,
-      required: false,
-      default: "#fff",
-    },
-    bgColor: {
-      type: String,
-      required: false,
-      default: null,
-    },
-    bgColorPalette: {
-      type: Array,
-      required: false,
-      default: () => [],
     },
   },
   methods: {
@@ -76,8 +59,8 @@ export default {
     },
     url() {
       let canvas = document.createElement("canvas");
-      canvas.width = this.width;
-      canvas.height = this.height;
+      canvas.width = this.canvasWidth;
+      canvas.height = this.canvasHeight;
       let context = canvas.getContext("2d");
 
       context.fillStyle = this.bgColorValue;
@@ -85,7 +68,11 @@ export default {
       context.font = `bold ${this.fontSize}px Helvetica, Arial, sans-serif`;
       context.textAlign = "center";
       context.fillStyle = this.fgColor;
-      context.fillText(this.initials, this.width / 2, this.height / 1.5);
+      context.fillText(
+        this.initials,
+        this.canvasWidth / 2,
+        this.canvasHeight / 1.5
+      );
 
       let uri = canvas.toDataURL();
       canvas = null;
@@ -93,13 +80,16 @@ export default {
       return uri;
     },
     classes() {
-      return { "letter-avatar--rounded": this.rounded };
+      return {
+        "letter-avatar--rounded": this.rounded,
+        "letter-avatar--block": this.block,
+      };
     },
   },
   data() {
     const data = {
-      width: 500,
-      height: 500,
+      canvasWidth: 500,
+      canvasHeight: 500,
       defaultBgColorPalette: [
         "#e53935",
         "#d81b60",
@@ -129,7 +119,7 @@ export default {
       ],
     };
 
-    data.fontSize = Math.ceil(data.width / 2.2);
+    data.fontSize = Math.ceil(data.canvasWidth / 2.2);
 
     return data;
   },
@@ -152,6 +142,10 @@ export default {
     img {
       border-radius: 50%;
     }
+  }
+  &--block {
+    width: 100%;
+    height: 100%;
   }
 }
 </style>

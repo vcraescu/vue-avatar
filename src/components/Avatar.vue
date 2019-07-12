@@ -1,10 +1,13 @@
 <template>
-  <div class="avatar" :class="classes">
-    <div class="avatar__letter" v-if="!hideLetter">
+  <div class="avatar" :class="classes" :style="styles">
+    <div class="avatar__letter" v-if="!showImage">
       <LetterAvatar
         :name="name"
         @click="onClick"
         :rounded="rounded"
+        :block="block"
+        :width="width"
+        :height="height"
         :fg-color="fgColor"
         :bg-color="bgColor"
         :bg-color-palette="bgColorPalette"
@@ -13,7 +16,7 @@
     <transition name="fade">
       <div
         class="avatar__image"
-        :class="{ 'avatar__image--initial': hideLetter }"
+        :class="{ 'avatar__image--initial': showImage }"
         v-if="showImage"
       >
         <img :src="url" :alt="name" width="100%" @click="onClick" />
@@ -23,10 +26,12 @@
 </template>
 
 <script>
+import avatarMixin from "../mixins/avatar";
 import LetterAvatar from "./LetterAvatar";
 
 export default {
   name: "VueAvatar",
+  mixins: [avatarMixin],
   components: { LetterAvatar },
   props: {
     url: {
@@ -38,30 +43,10 @@ export default {
       type: String,
       required: true,
     },
-    rounded: {
-      type: Boolean,
-      required: false,
-      default: false,
-    },
-    fgColor: {
-      type: String,
-      required: false,
-      default: "#fff",
-    },
-    bgColor: {
-      type: String,
-      required: false,
-      default: null,
-    },
-    bgColorPalette: {
-      type: Array,
-      required: false,
-      default: () => [],
-    },
   },
   computed: {
     classes() {
-      return { "avatar--rounded": this.rounded };
+      return { "avatar--rounded": this.rounded, "avatar--block": this.block };
     },
   },
   methods: {
@@ -79,10 +64,6 @@ export default {
         const img = new Image();
         img.onload = () => {
           this.showImage = true;
-
-          setTimeout(() => {
-            this.hideLetter = true;
-          }, 500);
         };
 
         img.src = value;
@@ -93,7 +74,6 @@ export default {
   data() {
     return {
       showImage: false,
-      hideLetter: false,
     };
   },
 };
@@ -101,11 +81,12 @@ export default {
 
 <style lang="scss" scoped>
 .avatar {
-  width: 100%;
   position: relative;
-  display: inline-block;
   font-size: 0;
   line-height: 0;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
 
   &__letter {
   }
@@ -123,14 +104,15 @@ export default {
   }
   &--rounded {
     border-radius: 50%;
-    img {
-      border-radius: 50%;
-    }
+  }
+  &--block {
+    width: 100%;
+    height: 100%;
   }
 }
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.5s;
+  transition: opacity 0.3s;
 }
 .fade-enter,
 .fade-leave-to {

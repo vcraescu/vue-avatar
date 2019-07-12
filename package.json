@@ -1,6 +1,6 @@
 {
   "name": "@vcraescu/vue-avatar",
-  "version": "0.1.8",
+  "version": "0.2.2",
   "private": false,
   "author": {
     "name": "Viorel Craescu",
@@ -28,7 +28,7 @@
   "main": "./dist/vue-avatar.common.js",
   "dependencies": {},
   "devDependencies": {
-    "core-js": "^2.6.5",
+    "core-js": "^3.1.4",
     "vue": "^2.6.10",
     "@vue/cli-plugin-babel": "^3.8.0",
     "@vue/cli-plugin-eslint": "^3.8.0",
@@ -38,7 +38,7 @@
     "@vue/test-utils": "1.0.0-beta.29",
     "babel-eslint": "^10.0.1",
     "chai": "^4.1.2",
-    "eslint": "^5.16.0",
+    "eslint": "^6.0.1",
     "eslint-plugin-vue": "^5.0.0",
     "node-sass": "^4.9.0",
     "sass-loader": "^7.1.0",
